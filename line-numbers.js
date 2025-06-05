@@ -185,10 +185,24 @@ ${this.tagName} pre.${this.classes.target} {
 		}
 	}
 
+	isObtrusive() {
+		return this.hasAttribute(Numbers.attrs.obtrusive);
+	}
+
 	getOverflowType() {
 		let target = this.scrollTargetEl;
+		let isObtrusive = this.isObtrusive();
+
+		if(isObtrusive) {
+			this.linesEl.style.display = "none";
+		}
+
 		let isHorizontal = target?.scrollWidth > this.offsetWidth;
 		let isVertical = target?.scrollHeight > this.offsetHeight;
+
+		if(isObtrusive) {
+			this.linesEl.style.display = "";
+		}
 
 		if(isHorizontal && isVertical) {
 			return "both";
@@ -235,7 +249,7 @@ ${this.tagName} pre.${this.classes.target} {
 
 		let overflowType = this.getOverflowType();
 		// Obtrusive type pretends not to have overflow due to height of numbers during init
-		if(this.hasAttribute(Numbers.attrs.obtrusive) || overflowType) {
+		if(this.isObtrusive() || overflowType) {
 			this.positionLines({
 				updateScrollbarHeight: true,
 				overflowType,
