@@ -1,6 +1,7 @@
 # Unencumbered `<line-numbers>` Web Component
 
 - [**Demo**](https://zachleat.github.io/line-numbers/demo.html)
+- [npm package](https://www.npmjs.com/package/@zachleat/line-numbers)
 
 ```
 npm install @zachleat/line-numbers
