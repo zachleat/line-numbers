@@ -48,6 +48,7 @@ ${this.tagName} .${this.classes.target} {
 	margin: 0;
 	/* Warning: does not handle wrapping long lines */
 	white-space: nowrap;
+	white-space-collapse: preserve;
 }
 ${this.tagName} pre.${this.classes.target} {
 	/* Warning: does not handle wrapping long lines */
