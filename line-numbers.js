@@ -25,6 +25,7 @@ class Numbers extends HTMLElement {
 		scrollTargetSelector: "scroll-target",
 		startIndex: "start",
 		obtrusive: "obtrusive",
+		manualRender: "manual-render",
 	}
 	static classes = {
 		target: "uln-target",
@@ -37,10 +38,11 @@ class Numbers extends HTMLElement {
 		}
 	}
 
-	static style = css`
+	static getStyle() {
+		return css`
 ${this.tagName} > :first-child {
 	display: block;
-  max-width: 100%;
+	max-width: 100%;
 }
 ${this.tagName} .${this.classes.target} {
 	margin: 0;
@@ -52,9 +54,15 @@ ${this.tagName} pre.${this.classes.target} {
 	white-space: pre;
 }
 `;
+	}
+
 	static globalStyleAdded = false;
 
-	static shadowStyle = css`
+	static getShadowStyle() {
+		return css`
+* {
+	box-sizing: border-box;
+}
 :host {
 	display: flex;
 	position: relative;
@@ -70,9 +78,10 @@ ${this.tagName} pre.${this.classes.target} {
 	border-radius: var(--uln-border-radius);
 	font: var(--uln-font, inherit);
 	color: var(--uln-color);
-	padding: 0 var(--uln-padding, .75em);
+	padding-block: var(--uln-padding-v, 0px);
+	padding-inline: var(--uln-padding-h, .75em);
 	margin: 0;
-	line-height: 1lh;
+	line-height: var(--uln-lh, 1lh);
 	list-style: none;
 	list-style-position: inside;
 	counter-reset: decimal-without-dot var(--uln-number-start, 0);
@@ -91,6 +100,7 @@ ${this.tagName} pre.${this.classes.target} {
 	content: counter(decimal-without-dot, var(--uln-number-type, decimal));
 }
 `;
+	}
 
 	get targetEl() {
 		if(!this.#target) {
@@ -143,6 +153,7 @@ ${this.tagName} pre.${this.classes.target} {
 			force: false,
 			updateScrollbarHeight: false,
 		}, opts);
+
 		if(this.#positionPause && !force) {
 			return;
 		}
@@ -151,18 +162,25 @@ ${this.tagName} pre.${this.classes.target} {
 
 		// only required for obtrusive
 		let height = this.scrollTargetEl.offsetHeight;
-		if(height) {
-			this.linesEl.style.setProperty("--uln-height", height + "px");
-		}
-
-		if(updateScrollbarHeight) {
+		if(height || updateScrollbarHeight) {
 			if(!overflowType) {
 				overflowType = this.getOverflowType();
 			}
-			if(overflowType === "horizontal" || overflowType === "both") {
-				this.linesEl.style.setProperty("--uln-scrollbar-height", Numbers.scrollbarDimensions[1] + "px");
+		}
+		if(height) {
+			if(overflowType) {
+				// TODO start here, disallow vertical overflow type here
+				this.linesEl.style.setProperty("--uln-height", height + "px");
 			} else {
-				this.linesEl.style.removeProperty("--uln-scrollbar-height");
+				this.linesEl.style.removeProperty("--uln-height");
+			}
+		}
+
+		if(updateScrollbarHeight) {
+			if(overflowType === "horizontal" || overflowType === "both") {
+				this.style.setProperty("--uln-scrollbar-height", Numbers.scrollbarDimensions[1] + "px");
+			} else {
+				this.style.removeProperty("--uln-scrollbar-height");
 			}
 		}
 	}
@@ -195,13 +213,13 @@ ${this.tagName} pre.${this.classes.target} {
 		if(!Numbers.globalStyleAdded) {
 			Numbers.globalStyleAdded = true;
 			let sheet = new CSSStyleSheet();
-			sheet.replaceSync(Numbers.style);
+			sheet.replaceSync(Numbers.getStyle());
 			document.adoptedStyleSheets.push(sheet);
 		}
 
 		let shadowroot = this.attachShadow({ mode: "open" });
 		let shadowSheet = new CSSStyleSheet();
-		shadowSheet.replaceSync(Numbers.shadowStyle);
+		shadowSheet.replaceSync(Numbers.getShadowStyle());
 		shadowroot.adoptedStyleSheets = [shadowSheet];
 
 		let template = document.createElement("template");
@@ -224,7 +242,7 @@ ${this.tagName} pre.${this.classes.target} {
 			});
 		}
 
-		if(Numbers.shouldWatchInput(this.targetEl)) {
+		if(Numbers.shouldWatchInput(this.targetEl) && !this.hasAttribute(Numbers.attrs.manualRender)) {
 			this.targetEl.addEventListener("input", async () => {
 				this.#positionPause = true;
 				this.setupLines();
@@ -233,13 +251,16 @@ ${this.tagName} pre.${this.classes.target} {
 			})
 		}
 
-		if(overflowType) {
-			this.scrollTargetEl.addEventListener("scroll", () => {
-				this.positionLines();
-			}, {
-				passive: true
-			});
-		}
+		this.scrollTargetEl.addEventListener("scroll", () => {
+			this.positionLines();
+		}, {
+			passive: true
+		});
+	}
+
+	render() {
+		this.setupLines();
+		this.positionLines({ force: true, updateScrollbarHeight: true });
 	}
 }
 
