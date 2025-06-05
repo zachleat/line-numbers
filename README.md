@@ -1,10 +1,11 @@
 # Unencumbered `<line-numbers>` Web Component
 
+- [**Demo**](https://zachleat.github.io/line-numbers/demo.html)
+
 ```
 npm install @zachleat/line-numbers
 ```
 
-- [**Demo**](https://zachleat.github.io/line-numbers/demo.html)
 - ✅ `<pre>` supported
 - ✅ `<textarea>` supported (even when adding or removing lines)
 - ✅ CSS `overflow` supported (with obtrusive/visible or nonobtrusive scrollbars)
