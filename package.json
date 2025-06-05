@@ -1,6 +1,6 @@
 {
 	"name": "@zachleat/line-numbers",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "A web component to add line numbers next to various HTML elements.",
 	"main": "line-numbers.js",
 	"scripts": {
