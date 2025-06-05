@@ -1,5 +1,10 @@
 # Unencumbered `<line-numbers>` Web Component
 
+```
+npm install @zachleat/line-numbers
+```
+
+- [**Demo**](https://zachleat.github.io/line-numbers/demo.html)
 - ✅ `<pre>` supported
 - ✅ `<textarea>` supported (even when adding or removing lines)
 - ✅ CSS `overflow` supported (with obtrusive/visible or nonobtrusive scrollbars)
@@ -14,9 +19,3 @@ Trying to keep this one as simple as possible, so please note the following:
 
 - Line wrapping is **not** supported (`white-space: pre` or `white-space: nowrap` only, and this is enforced by the component)
 - Elements using `contenteditable` are **not** supported
-
-## Installation
-
-```
-npm install @zachleat/line-numbers
-```
