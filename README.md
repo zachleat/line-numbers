@@ -6,6 +6,8 @@
 npm install @zachleat/line-numbers
 ```
 
+## Features
+
 - ✅ `<pre>` supported
 - ✅ `<textarea>` supported (even when adding or removing lines)
 - ✅ CSS `overflow` supported (with obtrusive/visible or nonobtrusive scrollbars)
@@ -14,7 +16,7 @@ npm install @zachleat/line-numbers
 - ✅ Change the starting index for counter via (`<line-numbers start="999">`)
 - ✅ Numbers are unobtrusive by default to reduce layout shift (opt-in to obtrusive behavior via `<line-numbers obtrusive>`)
 
-## Limitations
+### Limitations
 
 Trying to keep this one as simple as possible, so please note the following:
 
