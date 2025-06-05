@@ -1,0 +1,26 @@
+{
+	"name": "@zachleat/line-numbers",
+	"version": "1.0.0",
+	"description": "A web component to add line numbers next to various HTML elements.",
+	"main": "line-numbers.js",
+	"scripts": {
+		"start": "npx http-server ."
+	},
+	"author": "Zach Leatherman <zachleatherman@gmail.com> (https://zachleat.com/)",
+	"license": "MIT",
+	"type": "module",
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/zachleat/line-numbers.git"
+	},
+	"bugs": {
+		"url": "https://github.com/zachleat/line-numbers/issues"
+	},
+	"homepage": "https://github.com/zachleat/line-numbers#readme",
+	"devDependencies": {
+		"http-server": "^14.1.1"
+	}
+}

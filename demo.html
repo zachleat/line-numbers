@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>&lt;line-numbers&gt; Web Component</title>
+		<style>
+		* {
+			box-sizing: border-box;
+		}
+		:root {
+			--uln-font: Roboto Mono, monospace;
+			--uln-padding-h: .75em;
+			--uln-color: #777;
+		}
+		body {
+			font-family: system-ui, sans-serif;
+			max-width: 40em;
+			margin: 0 auto;
+			padding-bottom: 10em;
+			line-height: 1.5;
+			border: 1px solid #eee;
+		}
+		textarea, pre {
+			margin: 0;
+		}
+		line-numbers:not(:defined) {
+			display: flex;
+		}
+		pre {
+			width: 100%;
+			font-size: 1rem;
+			overflow: auto;
+		}
+		textarea {
+			border: none;
+			background-color: #eee;
+			font: inherit;
+		}
+		</style>
+		<script type="module" src="./line-numbers.js"></script>
+	</head>
+	<body>
+		<h1>Unencumbered &lt;line-numbers&gt; Web Component</h1>
+		<p>A very light left and right border has been added to the &lt;body&gt; element to demonstrate obtrusive versus unobtrusive behavior.</p>
+
+		<h2>&lt;pre&gt;</h2>
+		<line-numbers>
+			<pre># Hello {{ subject }}
+
+line
+another line
+
+
+this is getting longer
+
+this is getting longer</pre>
+		</line-numbers>
+
+		<h3>&lt;pre&gt; (obtrusive, start with 999)</h3>
+		<line-numbers obtrusive start="999">
+			<pre># Hello {{ subject }}
+
+line
+another line
+
+
+this is getting longer
+
+this is getting longer</pre>
+		</line-numbers>
+
+		<h3><code>&lt;pre&gt;</code> with vertical overflow</h3>
+
+		<line-numbers>
+			<pre style="max-height: 6em; overflow: auto;"># Hello {{ subject }}
+
+line
+another line
+
+
+this is getting longer
+
+this is getting longer</pre>
+		</line-numbers>
+
+		<h3><code>&lt;pre&gt;</code> with vertical overflow (obtrusive)</h3>
+
+		<line-numbers obtrusive>
+			<pre style="max-height: 6em; overflow: auto;"># Hello {{ subject }}
+
+line
+another line
+
+
+this is getting longer
+
+this is getting longer</pre>
+		</line-numbers>
+
+		<h3><code>&lt;pre&gt;</code> with horizontal overflow</h3>
+		<line-numbers>
+			<pre style="overflow: auto;"># Hello {{ subject }}
+
+line
+super long line super long line super long line super long line super long line super long line super long line super long line super long line super long line super long line
+another line
+
+this is getting longer
+
+this is getting longer</pre>
+		</line-numbers>
+
+		<h3><code>&lt;pre&gt;</code> with horizontal overflow (obtrusive)</h3>
+		<line-numbers obtrusive>
+			<pre style="overflow: auto;"># Hello {{ subject }}
+
+line
+super long line super long line super long line super long line super long line super long line super long line super long line super long line super long line super long line
+another line
+
+this is getting longer
+
+this is getting longer</pre>
+		</line-numbers>
+
+		<h3><code>&lt;pre&gt;</code> with both overflow</h3>
+		<line-numbers>
+			<pre style="max-height: 6em; overflow: auto;"># Hello {{ subject }}
+
+line
+super long line super long line super long line super long line super long line super long line super long line super long line super long line super long line super long line
+another line
+
+
+this is getting longer
+
+this is getting longer</pre>
+		</line-numbers>
+
+		<h3><code>&lt;pre&gt;</code> with both overflow (obtrusive)</h3>
+		<line-numbers obtrusive>
+			<pre style="max-height: 6em; overflow: auto;"># Hello {{ subject }}
+
+line
+super long line super long line super long line super long line super long line super long line super long line super long line super long line super long line super long line
+another line
+
+
+this is getting longer
+
+this is getting longer</pre>
+		</line-numbers>
+
+		<h3>Change the counter type</h3>
+		<h4>Leading zero</h4>
+
+		<line-numbers style="--uln-number-type: decimal-leading-zero">
+			<pre style=""># Hello {{ subject }}
+
+line
+another line
+
+
+this is getting longer
+
+this is getting longer</pre>
+		</line-numbers>
+
+		<h4>Upper roman</h4>
+
+		<line-numbers style="--uln-number-type: upper-roman">
+			<pre style=""># Hello {{ subject }}
+
+line
+another line
+
+
+this is getting longer
+
+this is getting longer</pre>
+		</line-numbers>
+
+		<h2>&lt;textarea&gt;</h2>
+		<h3>&lt;textarea&gt; with vertical overflow</h3>
+
+		<p>If you type additional lines into the textarea, we add more numbers.</p>
+
+		<line-numbers>
+			<textarea style="width: 100%; height: 6em;"># Hello {{ subject }}
+
+line
+another line
+
+
+this is getting longer
+
+this is getting longer</textarea>
+		</line-numbers>
+
+		<h3>&lt;textarea&gt; with both overflow</h3>
+
+		<line-numbers>
+			<textarea style="width: 100%; height: 6em;"># Hello {{ subject }}
+
+line
+super long line super long line super long line super long line super long line super long line super long line super long line super long line super long line super long line
+another line
+
+
+this is getting longer
+
+this is getting longer</textarea>
+		</line-numbers>
+
+
+		<h3>&lt;textarea&gt; with both overflow (obtrusive)</h3>
+
+		<line-numbers obtrusive>
+			<textarea style="width: 100%; height: 6em;"># Hello {{ subject }}
+
+line
+super long line super long line super long line super long line super long line super long line super long line super long line super long line super long line super long line
+another line
+
+
+this is getting longer
+
+this is getting longer</textarea>
+		</line-numbers>
+
+<!-- <line-numbers>
+	<div contenteditable>Edit me</div>
+</line-numbers> -->
+	</body>
+</html>
