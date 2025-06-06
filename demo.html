@@ -17,15 +17,24 @@
 			font-family: system-ui, sans-serif;
 			max-width: 40em;
 			margin: 0 auto;
-			padding: 0 0 10em 2em;
+			padding: 0 0 10em;
 			line-height: 1.5;
 			border: 1px solid #eee;
 		}
 		textarea, pre {
 			margin: 0;
 		}
+		line-numbers {
+			background-color: #fafafa;
+		}
+		/* for demo background color pre-JS */
 		line-numbers:not(:defined) {
 			display: flex;
+		}
+		@media (max-width: 46.1875em) { /* 739px */
+			line-numbers:not([obtrusive]) {
+				margin-inline-start: 2em;
+			}
 		}
 		pre {
 			width: 100%;
@@ -34,7 +43,7 @@
 		}
 		textarea {
 			border: none;
-			background-color: #eee;
+			background-color: transparent;
 			font: inherit;
 		}
 		</style>
@@ -45,7 +54,7 @@
 
 		<p>Back to the <a href="https://github.com/zachleat/line-numbers">source code on GitHub</a>.</p>
 
-		<p>A very light left and right border has been added to the &lt;body&gt; element to demonstrate obtrusive (the numbers intrude on and shrink the original content) versus unobtrusive behavior.</p>
+		<p>Demo styles (border on &lt;body&gt; and a background-color on &lt;line-numbers&gt;) have been added here to demonstrate obtrusive behavior (the numbers intrude on and shrink the width of the original content).</p>
 
 		<h2>&lt;pre&gt;</h2>
 		<line-numbers>
