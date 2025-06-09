@@ -38,6 +38,19 @@ class Numbers extends HTMLElement {
 		}
 	}
 
+	static upgrade(node) {
+		if(!node || node.closest(this.tagName)) {
+			return;
+		}
+
+		let h = document.createElement("div");
+		node.parentNode.insertBefore(h, node);
+
+		let c = document.createElement(this.tagName);
+		c.appendChild(node);
+		h.replaceWith(c);
+	}
+
 	static getStyle() {
 		return css`
 ${this.tagName} > :first-child {

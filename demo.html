@@ -255,8 +255,42 @@ this is getting longer
 this is getting longer</textarea>
 		</line-numbers>
 
-<!-- <line-numbers>
-	<div contenteditable>Edit me</div>
-</line-numbers> -->
+		<h2>Upgrade unwrapped content</h2>
+		<script type="module">
+		let btn = document.getElementById("upgrade-content");
+		btn.addEventListener("click", () => {
+			const LineNumbers = customElements.get("line-numbers");
+			for(let el of document.body.querySelectorAll("pre, textarea")) {
+				// ignores elements inside <line-numbers> already
+				LineNumbers.upgrade(el);
+			}
+		});
+		</script>
+
+		<form>
+			<button type="button" id="upgrade-content">Upgrade &lt;pre&gt;</button>
+		</form>
+
+		<pre style="height: 6em;"># Hello {{ subject }}
+
+line
+another line
+
+
+this is getting longer
+
+this is getting longer</pre>
+
+	<br>
+
+	<textarea style="width: 100%; height: 6em;"># Hello {{ subject }}
+
+line
+another line
+
+
+this is getting longer
+
+this is getting longer</texarea>
 	</body>
 </html>
