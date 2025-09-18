@@ -20,6 +20,8 @@ class Numbers extends HTMLElement {
 	#target;
 	#scrollTarget;
 
+	static EOL = "\n";
+
 	static attrs = {
 		targetSelector: "target",
 		scrollTargetSelector: "scroll-target",
@@ -88,12 +90,11 @@ ${this.tagName} pre.${this.classes.target} {
 	height: 100%;
 	translate: -100% 0;
 	clip-path: inset(var(--uln-top) 0 calc(-1 * var(--uln-top, 0px) + var(--uln-scrollbar-height, 0px)) 0);
-	pointer-events: none;
 	border-radius: var(--uln-border-radius);
 	font: var(--uln-font, inherit);
 	color: var(--uln-color);
 	padding-block: var(--uln-padding-v, 0px);
-	padding-inline: var(--uln-padding-h, .75em);
+	padding-inline: 0;
 	margin: 0;
 	line-height: var(--uln-lh, 1lh);
 	list-style: none;
@@ -109,6 +110,7 @@ ${this.tagName} pre.${this.classes.target} {
 .lines li {
 	text-align: right;
 	counter-increment: decimal-without-dot;
+	padding-inline: var(--uln-padding-h, .75em);
 }
 .lines li:before {
 	content: counter(decimal-without-dot, var(--uln-number-type, decimal));
